@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS LOG (
+  id INT PRIMARY KEY,
+  username VARCHAR(250) NOT NULL,
+  searchCountByID INT,
+  datetime VARCHAR(250) NOT NULL
+);
