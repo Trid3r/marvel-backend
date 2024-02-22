@@ -37,6 +37,12 @@ public class ResponseDomain {
         private Events events;
         private Series series;
         private Stories stories;
+
+        public Result (int id, String name, String description){
+            this.id = id;
+            this.name = name;
+            this.description = description;
+        }
     }
 
     @Data
@@ -64,4 +70,16 @@ public class ResponseDomain {
     public static class Stories {
         private int available;
     }
+
+//    public Result (String name, String description){
+//        this.results = name;
+//        this.description = description;
+//    }
+
+//    public ResponseData (String offset, String limit, String total, String count){
+//        this.offset = offset;
+//        this.limit = limit;
+//        this.total = total;
+//        this.count = count;
+//    }
 }

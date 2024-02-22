@@ -1,23 +1,17 @@
 package com.trid3r.marvelapi.service;
 
 import com.trid3r.marvelapi.domain.ResponseDomain;
+import com.trid3r.marvelapi.util.Helper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 
 @Service
 public class MarvelService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-
-    @Value("${privateKey}")
-    private String privateKey;
 
     @Value("${publicKey}")
     private String publicKey;
@@ -27,7 +21,7 @@ public class MarvelService {
 
     public ResponseDomain getCharacters(int limit, int offset) {
         String ts = String.valueOf(Instant.now().toEpochMilli());
-        String hash = generateHash(ts, privateKey, publicKey);
+        String hash = Helper.generateMarvelAPIHash(ts);
 
         String url = UriComponentsBuilder.fromHttpUrl(baseUrl + "/v1/public/characters")
                 .queryParam("ts", ts)
@@ -43,7 +37,7 @@ public class MarvelService {
 
     public ResponseDomain getCharactersById(int id) {
         String ts = String.valueOf(Instant.now().toEpochMilli());
-        String hash = generateHash(ts, privateKey, publicKey);
+        String hash = Helper.generateMarvelAPIHash(ts);
 
         String url = UriComponentsBuilder.fromHttpUrl(baseUrl + "/v1/public/characters/" + id)
                 .queryParam("ts", ts)
@@ -54,19 +48,4 @@ public class MarvelService {
         return restTemplate.getForObject(url, ResponseDomain.class);
     }
 
-    private String generateHash(String ts, String privateKey, String publicKey) {
-        try {
-            String value = ts + privateKey + publicKey;
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(value.getBytes());
-            BigInteger no = new BigInteger(1, messageDigest);
-            StringBuilder hashText = new StringBuilder(no.toString(16));
-            while (hashText.length() < 32) {
-                hashText.insert(0, "0");
-            }
-            return hashText.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("MD5 hashing algorithm not found", e);
-        }
-    }
 }

@@ -22,10 +22,10 @@ public class LogDomain implements Serializable {
     private String search_id;
     private String datetime;
 
-//    public LogDomain (String username, String type_search, String search_id, String datetime){
-//        this.username = username;
-//        this.type_search = type_search;
-//        this.search_id = search_id;
-//        this.datetime = datetime;
-//    }
+    public LogDomain (String username, String type_search, String search_id, String datetime){
+        this.username = username;
+        this.type_search = type_search;
+        this.search_id = search_id;
+        this.datetime = datetime;
+    }
 }
