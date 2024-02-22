@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS LOG (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(250) NOT NULL,
-  searchCountByID INT,
+  type_search VARCHAR(250) NOT NULL,
+  search_id VARCHAR(250),
   datetime VARCHAR(250) NOT NULL
 );

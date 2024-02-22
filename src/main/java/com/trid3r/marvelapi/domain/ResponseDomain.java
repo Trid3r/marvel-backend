@@ -32,5 +32,36 @@ public class ResponseDomain {
         private int id;
         private String name;
         private String description;
+        private Thumbnail thumbnail;
+        private Comics comics;
+        private Events events;
+        private Series series;
+        private Stories stories;
+    }
+
+    @Data
+    public static class Thumbnail {
+        private String path;
+        private String extension;
+    }
+
+    @Data
+    public static class Comics {
+        private int available;
+    }
+
+    @Data
+    public static class Events {
+        private int available;
+    }
+
+    @Data
+    public static class Series {
+        private int available;
+    }
+
+    @Data
+    public static class Stories {
+        private int available;
     }
 }
